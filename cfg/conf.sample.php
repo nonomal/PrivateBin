@@ -135,12 +135,13 @@ markdown = "Markdown"
 ; Set this to 0 to disable rate limiting.
 limit = 10
 
+; Set ips (v4|v6) which should be exempted for the rate-limit. CIDR also supported. Needed to be comma separated.
+; Unset for enabling and invalid values will be ignored
+; eg: exemptedIp = '1.2.3.4,10.10.10/24'
+
 ; (optional) if your website runs behind a reverse proxy or load balancer,
 ; set the HTTP header containing the visitors IP address, i.e. X_FORWARDED_FOR
 ; header = "X_FORWARDED_FOR"
-
-; directory to store the traffic limits in
-dir = PATH "data"
 
 [purge]
 ; minimum time limit between two purgings of expired pastes, it is only
@@ -153,15 +154,19 @@ limit = 300
 ; site
 batchsize = 10
 
-; directory to store the purge limit in
-dir = PATH "data"
-
 [model]
 ; name of data model class to load and directory for storage
 ; the default model "Filesystem" stores everything in the filesystem
 class = Filesystem
 [model_options]
 dir = PATH "data"
+
+[model]
+; example of a Google Cloud Storage configuration
+;class = GoogleCloudStorage
+;[model_options]
+;bucket = "my-private-bin"
+;prefix = "pastes"
 
 ;[model]
 ; example of DB configuration for MySQL
